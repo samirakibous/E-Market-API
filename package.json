@@ -1,0 +1,31 @@
+{
+  "name": "e-market-api",
+  "version": "1.0.0",
+  "description": "Backend REST API for E-Market platform",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samirakibous/E-Market-API.git"
+  },
+  "author": "samira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samirakibous/E-Market-API/issues"
+  },
+  "homepage": "https://github.com/samirakibous/E-Market-API#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongoose": "^8.19.1",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
