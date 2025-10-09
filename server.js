@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 // Importer routes
 const productRoutes = require("./src/routes/product.routes");
 const userRoutes = require("./src/routes/user.routes");
+const categoryRoutes = require("./src/routes/categories.routes");
 
 // Importer middlewares
 const logger = require("./src/middlewares/logger.middleware");
@@ -23,6 +24,7 @@ app.use(logger);
 // Routes
 app.use("/products", productRoutes);
 app.use("/users", userRoutes);
+app.use("/categories", categoryRoutes);
 
 // Middleware 404
 // app.use(notFound);
