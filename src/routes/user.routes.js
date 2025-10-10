@@ -9,5 +9,7 @@ router.post("/", validateSchema(userSchema), userController.createUser);
 router.get("/:id", userController.getUserById);
 router.put("/:id", validateSchema(userSchema), userController.updateUser);
 router.delete("/:id", userController.deleteUser);
+router.put("/soft-delete/:id", userController.softDeleteUser);
+router.put("/restore/:id", userController.restoreUser);
 
 module.exports = router;

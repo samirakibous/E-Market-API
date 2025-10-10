@@ -1,4 +1,5 @@
 const Product = require("../models/Product.model");
+const Category = require("../models/Category.model");
  const getAllProducts = async(req, res) => {
      try{
         const products = await Product.find({ deletedAt: null });
@@ -82,4 +83,41 @@ const Product = require("../models/Product.model");
         res.status(500).json({ message: "Error restoring product" });
      }
  }
- module.exports={getAllProducts,getProductById,createProduct,updateProduct,softDeleteProduct,deleteProduct,restoreProduct};
+
+ const searchProducts = async (req, res) => {
+  try {
+    const { name, category, minPrice, maxPrice } = req.query;
+
+    const filter = { deletedAt: null };
+
+    if (name) {
+      filter.name = { $regex: name, $options: "i" };
+    }
+
+       if (category) {
+      const categories = await Category.find({ name: { $regex: category, $options: "i" } });
+
+      if (categories.length === 0) {
+        return res.json([]); 
+      }
+
+      const categoryIds = categories.map(cat => cat._id);
+
+      // On filtre les produits appartenant à ces catégories
+      filter.categoryIds = { $in: categoryIds };
+    }
+
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = Number(minPrice);
+      if (maxPrice) filter.price.$lte = Number(maxPrice);
+    }
+
+    const products = await Product.find(filter);
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error searching products" });
+  }
+};
+ module.exports={getAllProducts,getProductById,createProduct,updateProduct,softDeleteProduct,deleteProduct,restoreProduct,searchProducts};
