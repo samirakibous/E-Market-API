@@ -48,7 +48,7 @@ const updateCategory = async (req, res) => {
     }
 };
 
-const deleteCategory = async (req, res) => {
+const softDeleteCategory = async (req, res) => {
     try {
         const deletedCategory = await Category.findByIdAndUpdate(
             req.params.id,
@@ -56,11 +56,37 @@ const deleteCategory = async (req, res) => {
             { new: true }
         );
         if (!deletedCategory) return res.status(404).json({ message: "Catégorie non trouvée" });
-        res.json({ message: "Catégorie supprimée avec succès", deletedCategory });
+        res.json(deletedCategory);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Erreur lors de la suppression de la catégorie" });
     }
 };
 
-module.exports = {getAllCategories,getCategoryById,createCategory,updateCategory,deleteCategory};
+const deleteCategory = async (req, res) => {
+    try {
+        const deletedCategory = await Category.findByIdAndDelete(req.params.id);
+        if (!deletedCategory) return res.status(404).json({ message: "Catégorie non trouvée" });
+        res.json({ message: "Catégorie supprimée avec sucesso" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Erreur lors de la suppression de la catégorie" });
+    }
+};
+
+const restoreCategory = async (req, res) => {
+    try {
+        const restoredCategory = await Category.findByIdAndUpdate(
+            req.params.id,
+            { deletedAt: null },
+            { new: true }
+        );
+        if (!restoredCategory) return res.status(404).json({ message: "Catégorie non trouvée" });
+        res.json(restoredCategory);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Erreur lors de la restauration de la catégorie" });
+    }
+};
+
+module.exports = {getAllCategories,getCategoryById,createCategory,updateCategory,deleteCategory,softDeleteCategory,restoreCategory};

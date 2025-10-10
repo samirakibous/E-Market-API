@@ -61,6 +61,19 @@ const updateUser = async (req, res) => {
     }
 };
 
+const softDeleteUser = async (req, res) => {
+    try {
+        const deletedUser = await User.findByIdAndUpdate(req.params.id, { deletedAt: new Date() }, { new: true });
+        if (!deletedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.json(deletedUser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error deleting user" });
+    }
+};
+
 const deleteUser = async (req, res) => {
     try {
         const deletedUser = await User.findByIdAndDelete(req.params.id);
@@ -74,10 +87,17 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = {
-    getAllUsers,
-    getUserById,
-    createUser,
-    updateUser,
-    deleteUser
+const restoreUser = async (req, res) => {
+    try {
+        const restoredUser = await User.findByIdAndUpdate(req.params.id, { deletedAt: null }, { new: true });
+        if (!restoredUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.json(restoredUser);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error restoring user" });
+    }
 };
+
+module.exports = {getAllUsers,getUserById,createUser,updateUser,deleteUser,softDeleteUser,restoreUser};

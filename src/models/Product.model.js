@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema({
     stocke: { type: Number, required: true, min: 0 },
     imageUrl: String,
     description: String,
-    categoryId: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
+    categoryIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Category" }],
     deletedAt: { type: Date, default: null }
 }, {
     timestamps: { createdAt: true, updatedAt: false }
