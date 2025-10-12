@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
-
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./documentation/swagger"); 
 const connectDB = require("./config/db");
 
 // Importer routes
@@ -21,6 +22,7 @@ app.use(express.json());
 // Middleware logger
 app.use(logger);
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Routes
 app.use("/products", productRoutes);
 app.use("/users", userRoutes);
