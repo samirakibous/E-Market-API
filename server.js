@@ -29,10 +29,10 @@ app.use("/users", userRoutes);
 app.use("/categories", categoryRoutes);
 
 // Middleware 404
-// app.use(notFound);
+app.use(notFound);
 
 // Middleware gestion des erreurs
-// app.use(errorHandler);
+app.use(errorHandler);
 
 // Connexion DB et lancement serveur
 connectDB().then(() => {

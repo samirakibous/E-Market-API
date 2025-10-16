@@ -1,4 +1,4 @@
-//mongoose est une bibliothéque permet de travailler avec mongoDB dans nodejs
+//mongoose est une bibliothéque permet de manipuler mongoDB en nodejs (odm)
 const mongoose = require("mongoose");
 //mongoose.Schema définit la structure de nos données
 const productSchema = new mongoose.Schema({
