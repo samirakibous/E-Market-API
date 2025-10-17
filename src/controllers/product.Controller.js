@@ -1,5 +1,7 @@
 const Product = require("../models/Product.model");
 const Category = require("../models/Category.model");
+
+const  mongoose = require("mongoose");
 const getAllProducts = async (req, res) => {
     try {
         const products = await Product.find({ deletedAt: null });
@@ -10,16 +12,20 @@ const getAllProducts = async (req, res) => {
     }
 }
 const getProductById = async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id);
-        if (!product) {
-            return res.status(404).json({ message: "Product not found" });
-        }
-        res.json(product);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error fetching product" });
+    // try {
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(404).json({ message: "product not found" });
     }
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+    }
+    res.json(product);
+    // } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ message: "Error fetching product" });
+    // }
 }
 
 const createProduct = async (req, res) => {

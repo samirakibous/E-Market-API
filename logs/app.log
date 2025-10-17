@@ -1,0 +1,9 @@
+[2025-10-16T15:50:30.520Z] PUT /products/68e933b3eff3c1d0ccafb99d
+[2025-10-16T16:03:42.868Z] GET /api-docs/
+[2025-10-16T16:03:42.963Z] GET /api-docs/swagger-ui.css
+[2025-10-16T16:03:42.980Z] GET /api-docs/swagger-ui-init.js
+[2025-10-16T16:03:42.985Z] GET /api-docs/swagger-ui-bundle.js
+[2025-10-16T16:03:42.989Z] GET /api-docs/swagger-ui-standalone-preset.js
+[2025-10-16T16:03:43.288Z] GET /api-docs/favicon-32x32.png
+[2025-10-16T16:04:06.685Z] GET /categories
+[2025-10-16T16:04:34.460Z] POST /products
